@@ -1,0 +1,607 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2299.5">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000; min-height: 14.0px}
+    span.s1 {font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="es"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8" /&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;title&gt;Generador de Contraseñas Seguras&lt;/title&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!--</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>=========================================================</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>Estilos (CSS)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>=========================================================</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>- Se incluyen dentro de &lt;style&gt; para mantener todo en un único archivo.</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>- Uso de variables CSS para facilitar el cambio de temas (oscuro / claro).</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>- Se aplican técnicas básicas de Responsividad (media queries).</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>- Se agregan animaciones y transiciones suaves.</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>- Se cuida la accesibilidad con tamaños de fuente, contraste y tipografía adecuada.</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>--&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;style&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* Variables globales */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>:root {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--font-family: 'Arial', sans-serif;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--transition-speed: 0.3s;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>/* Colores para tema claro */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--color-bg-light: #ffffff;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--color-text-light: #222222;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--color-primary-light: #0078d4;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--color-secondary-light: #cccccc;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--color-accent-light: #ececec;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--color-danger-light: #ff4444;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--color-warning-light: #ffaa00;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--color-success-light: #44dd44;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>/* Colores para tema oscuro */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--color-bg-dark: #1e1e1e;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--color-text-dark: #f0f0f0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--color-primary-dark: #6cb4ff;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--color-secondary-dark: #555555;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--color-accent-dark: #2a2a2a;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--color-danger-dark: #ff4444;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--color-warning-dark: #ffaa00;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--color-success-dark: #44dd44;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* Por defecto, aplicamos tema claro.<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">       </span>Cambiaremos dinámicamente esta clase en &lt;body&gt; según preferencia. */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body.light-theme {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background-color: var(--color-bg-light);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--color-text-light);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-family: var(--font-family);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>transition: background-color var(--transition-speed) ease,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                  </span>color var(--transition-speed) ease;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body.light-theme .container {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background-color: var(--color-accent-light);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body.light-theme .btn {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background-color: var(--color-primary-light);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: #ffffff;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body.light-theme .password-strength {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background-color: var(--color-secondary-light);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* Tema oscuro */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body.dark-theme {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background-color: var(--color-bg-dark);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--color-text-dark);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-family: var(--font-family);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>transition: background-color var(--transition-speed) ease,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                  </span>color var(--transition-speed) ease;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body.dark-theme .container {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background-color: var(--color-accent-dark);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body.dark-theme .btn {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background-color: var(--color-primary-dark);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: #ffffff;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body.dark-theme .password-strength {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background-color: var(--color-secondary-dark);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* Estructura principal */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>header, main, footer {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 1rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>max-width: 800px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin: 0 auto;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>header h1 {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>text-align: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 0.5rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.container {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 8px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 1rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-top: 1rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.form-row {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>flex-wrap: wrap;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>align-items: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-bottom: 1rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.form-row label {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-right: 0.5rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.form-row input[type="number"] {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>width: 80px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>text-align: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.options {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>flex-wrap: wrap;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>gap: 1rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-bottom: 1rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.options label {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>align-items: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>gap: 0.5rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.btn {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 0.5rem 1rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-right: 0.5rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 4px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>cursor: pointer;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>transition: opacity var(--transition-speed);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.btn:hover {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>opacity: 0.8;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.generated-password {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>align-items: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>justify-content: space-between;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>gap: 1rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-bottom: 1rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>flex-wrap: wrap;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.password-display {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>flex: 1;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 0.5rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border: 1px solid #ccc;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 4px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>word-wrap: break-word;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>min-height: 2.5rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.copy-feedback {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 0.9rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-left: auto;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>opacity: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>transition: opacity var(--transition-speed);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.copy-feedback.visible {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>opacity: 1;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.password-strength {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: inline-block;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 0.3rem 0.5rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 4px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: #fff;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-bottom: 1rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-weight: bold;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>text-align: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>transition: background-color var(--transition-speed);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* Colores de fortaleza de la contraseña */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.strength-weak {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background-color: var(--color-danger-light);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.strength-medium {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background-color: var(--color-warning-light);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.strength-strong {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background-color: var(--color-success-light);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* Sección de contraseñas guardadas */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.saved-passwords-list {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>list-style-type: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.saved-passwords-list li {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>align-items: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>justify-content: space-between;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border: 1px solid #ccc;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 4px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 0.5rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-bottom: 0.5rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>word-wrap: break-word;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.saved-passwords-list .btn-delete {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-left: 0.5rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background-color: var(--color-danger-light);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: #fff;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* Botón de modo oscuro/claro */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.theme-toggle {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>text-align: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-top: 1rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* Responsividad */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>@media (max-width: 600px) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.form-row {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>flex-direction: column;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.generated-password {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>flex-direction: column;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>align-items: flex-start;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body class="light-theme"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!--</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>=========================================================</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>Contenido HTML</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>=========================================================</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>--&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;header&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Generador de Contraseñas Seguras&lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/header&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;main&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;!-- Contenedor principal --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;section class="container" aria-label="Generador de contraseñas"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;!-- Configuración de longitud y tipos de caracteres --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="form-row"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;label for="password-length"&gt;Longitud:&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;input</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>type="number"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>id="password-length"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>min="8"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>max="50"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>value="12"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>aria-label="Longitud de la contraseña"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="options"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;input</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>type="checkbox"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>id="include-uppercase"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>checked</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>aria-label="Incluir mayúsculas"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>/&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>Mayúsculas</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/label&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;input</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>type="checkbox"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>id="include-lowercase"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>checked</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>aria-label="Incluir minúsculas"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>/&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>Minúsculas</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/label&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;input</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>type="checkbox"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>id="include-numbers"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>checked</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>aria-label="Incluir números"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>/&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>Números</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/label&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;input</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>type="checkbox"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>id="include-symbols"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>checked</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>aria-label="Incluir símbolos"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>/&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>Símbolos</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;!-- Botón para generar contraseña --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;button class="btn" id="generate-btn"&gt;Generar&lt;/button&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;!-- Visualización de contraseña generada --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="generated-password" aria-live="polite"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="password-display" id="password-display" tabindex="0" aria-label="Contraseña generada"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button class="btn" id="copy-btn"&gt;Copiar&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;span class="copy-feedback" id="copy-feedback"&gt;¡Copiado!&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;!-- Indicador de fuerza de contraseña --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="password-strength" id="password-strength-indicator"&gt;Fortaleza&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;!-- Botón para guardar contraseña --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;button class="btn" id="save-btn"&gt;Guardar&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;!-- Lista de contraseñas guardadas --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;section class="container" aria-label="Contraseñas guardadas"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;h2&gt;Contraseñas Guardadas&lt;/h2&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;ul class="saved-passwords-list" id="saved-passwords-list"&gt;&lt;/ul&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;!-- Alternar tema --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="theme-toggle"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;button class="btn" id="toggle-theme-btn"&gt;Modo Oscuro/Claro&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/main&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;footer&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;p style="text-align: center;"&gt;&amp;copy; 2025 Generador de Contraseñas Seguras&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/footer&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!--</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>=========================================================</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>Scripts (JavaScript)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>=========================================================</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>- Se utilizan funciones separadas para:</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>* Generar contraseñas</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>* Actualizar UI</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>* Manejar localStorage</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>* Controlar el tema (oscuro/claro)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>- Se usa crypto.getRandomValues para mayor seguridad en la generación.</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>- Se incluyen comentarios explicativos en secciones clave.</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>--&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// DOM elements</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const passwordLengthInput = document.getElementById('password-length');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const includeUppercaseInput = document.getElementById('include-uppercase');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const includeLowercaseInput = document.getElementById('include-lowercase');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const includeNumbersInput = document.getElementById('include-numbers');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const includeSymbolsInput = document.getElementById('include-symbols');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const generateBtn = document.getElementById('generate-btn');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const copyBtn = document.getElementById('copy-btn');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const copyFeedback = document.getElementById('copy-feedback');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const passwordDisplay = document.getElementById('password-display');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const passwordStrengthIndicator = document.getElementById('password-strength-indicator');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const saveBtn = document.getElementById('save-btn');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const savedPasswordsList = document.getElementById('saved-passwords-list');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const toggleThemeBtn = document.getElementById('toggle-theme-btn');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const bodyElement = document.body;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Caracteres disponibles</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const UPPERCASE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const LOWERCASE_CHARS = 'abcdefghijklmnopqrstuvwxyz';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const NUMBERS_CHARS = '0123456789';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const SYMBOLS_CHARS = '!@#$%^&amp;*()_+~`|}{[]\\:;?&gt;&lt;,./-=';</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Al cargar la página, inicializamos tema y mostramos las contraseñas almacenadas</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>window.addEventListener('DOMContentLoaded', () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>loadThemePreference();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>displaySavedPasswords();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Función para generar contraseñas usando crypto.getRandomValues</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const generatePassword = (length, useUppercase, useLowercase, useNumbers, useSymbols) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>let chars = '';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (useUppercase) chars += UPPERCASE_CHARS;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (useLowercase) chars += LOWERCASE_CHARS;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (useNumbers) chars += NUMBERS_CHARS;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (useSymbols) chars += SYMBOLS_CHARS;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>// Manejo de error: si no se selecciona ningún tipo de carácter</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (!chars) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>alert('Por favor, selecciona al menos una opción (mayúsculas, minúsculas, números o símbolos).');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>return '';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>// Generar arreglo de bytes aleatorios</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const array = new Uint8Array(length);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>crypto.getRandomValues(array);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>// Construir la contraseña tomando cada byte mod la longitud de chars</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>let password = '';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>for (let i = 0; i &lt; length; i++) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const randomIndex = array[i] % chars.length;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>password += chars.charAt(randomIndex);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>return password;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Función para actualizar el indicador de fortaleza de la contraseña</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const updateStrengthIndicator = (password) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (!password) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>passwordStrengthIndicator.textContent = 'Fortaleza';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>passwordStrengthIndicator.classList.remove('strength-weak', 'strength-medium', 'strength-strong');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>let score = 0;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>// Aumentamos el puntaje según la longitud</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>score += password.length * 4;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>// Aumentamos el puntaje según variedad de caracteres</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const hasUpper = /[A-Z]/.test(password);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const hasLower = /[a-z]/.test(password);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const hasNumbers = /[0-9]/.test(password);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const hasSymbols = /[^A-Za-z0-9]/.test(password);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (hasUpper) score += 5;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (hasLower) score += 5;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (hasNumbers) score += 5;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (hasSymbols) score += 5;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>// Evaluamos el score para clasificar fortaleza</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>let strength = 'Débil';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>passwordStrengthIndicator.classList.remove('strength-weak', 'strength-medium', 'strength-strong');</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (score &lt; 40) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>strength = 'Débil';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>passwordStrengthIndicator.classList.add('strength-weak');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>} else if (score &gt;= 40 &amp;&amp; score &lt; 70) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>strength = 'Media';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>passwordStrengthIndicator.classList.add('strength-medium');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>} else {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>strength = 'Fuerte';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>passwordStrengthIndicator.classList.add('strength-strong');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>passwordStrengthIndicator.textContent = `Fortaleza: ${strength}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Evento: hacer clic en "Generar"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>generateBtn.addEventListener('click', () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const length = parseInt(passwordLengthInput.value, 10);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const useUppercase = includeUppercaseInput.checked;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const useLowercase = includeLowercaseInput.checked;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const useNumbers = includeNumbersInput.checked;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const useSymbols = includeSymbolsInput.checked;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const newPassword = generatePassword(length, useUppercase, useLowercase, useNumbers, useSymbols);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>passwordDisplay.textContent = newPassword;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>updateStrengthIndicator(newPassword);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>hideCopyFeedback();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Evento: hacer clic en "Copiar"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>copyBtn.addEventListener('click', () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const passwordToCopy = passwordDisplay.textContent.trim();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (!passwordToCopy) return;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>// Copiar al portapapeles</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>navigator.clipboard.writeText(passwordToCopy).then(() =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>showCopyFeedback();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Función para mostrar feedback "¡Copiado!"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const showCopyFeedback = () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>copyFeedback.classList.add('visible');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>setTimeout(() =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>hideCopyFeedback();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}, 2000); // Ocultar después de 2 segundos</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Función para ocultar feedback</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const hideCopyFeedback = () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>copyFeedback.classList.remove('visible');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Evento: hacer clic en "Guardar"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>saveBtn.addEventListener('click', () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const currentPassword = passwordDisplay.textContent.trim();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (!currentPassword) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>alert('Primero genera una contraseña antes de guardar.');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>savePassword(currentPassword);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>displaySavedPasswords();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Función para guardar contraseñas en localStorage</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const savePassword = (password) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const storedPasswords = JSON.parse(localStorage.getItem('savedPasswords')) || [];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>storedPasswords.push(password);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>localStorage.setItem('savedPasswords', JSON.stringify(storedPasswords));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Función para mostrar contraseñas guardadas</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const displaySavedPasswords = () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const storedPasswords = JSON.parse(localStorage.getItem('savedPasswords')) || [];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>savedPasswordsList.innerHTML = '';</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>storedPasswords.forEach((pass, index) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const li = document.createElement('li');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>li.innerHTML = `</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;span&gt;${pass}&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button class="btn" data-copy-index="${index}"&gt;Copiar&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button class="btn btn-delete" data-delete-index="${index}"&gt;Eliminar&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>savedPasswordsList.appendChild(li);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>// Agregar eventos a botones de cada ítem</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>document.querySelectorAll('[data-copy-index]').forEach((btn) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>btn.addEventListener('click', (e) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>const idx = e.target.getAttribute('data-copy-index');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>copySavedPassword(idx);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>document.querySelectorAll('[data-delete-index]').forEach((btn) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>btn.addEventListener('click', (e) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>const idx = e.target.getAttribute('data-delete-index');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>deleteSavedPassword(idx);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Función para copiar una contraseña guardada</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const copySavedPassword = (index) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const storedPasswords = JSON.parse(localStorage.getItem('savedPasswords')) || [];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (storedPasswords[index]) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>navigator.clipboard.writeText(storedPasswords[index]).then(() =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>alert('¡Contraseña copiada de la lista!');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Función para eliminar una contraseña guardada</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const deleteSavedPassword = (index) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>let storedPasswords = JSON.parse(localStorage.getItem('savedPasswords')) || [];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>storedPasswords.splice(index, 1);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>localStorage.setItem('savedPasswords', JSON.stringify(storedPasswords));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>displaySavedPasswords();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Tema oscuro / claro</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>toggleThemeBtn.addEventListener('click', () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const currentTheme = bodyElement.classList.contains('light-theme') ? 'light' : 'dark';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const newTheme = currentTheme === 'light' ? 'dark' : 'light';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>bodyElement.classList.toggle('light-theme');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>bodyElement.classList.toggle('dark-theme');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>// Guardar preferencia</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>localStorage.setItem('preferredTheme', newTheme);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Cargar la preferencia de tema</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const loadThemePreference = () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const preferredTheme = localStorage.getItem('preferredTheme');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (preferredTheme === 'dark') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>bodyElement.classList.remove('light-theme');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>bodyElement.classList.add('dark-theme');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>} else {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// Por defecto, tema claro</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>bodyElement.classList.remove('dark-theme');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>bodyElement.classList.add('light-theme');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>};</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>
