@@ -2,589 +2,552 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Generador de Contraseñas Seguras</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Generador Seguro de Contraseñas</title>
 
   <!--
     =========================================================
     Estilos (CSS)
     =========================================================
     - Se incluyen dentro de <style> para mantener todo en un único archivo.
-    - Uso de variables CSS para facilitar el cambio de temas (oscuro / claro).
-    - Se aplican técnicas básicas de Responsividad (media queries).
-    - Se agregan animaciones y transiciones suaves.
-    - Se cuida la accesibilidad con tamaños de fuente, contraste y tipografía adecuada.
+    - Se utilizan variables CSS para manejo de colores y tamaños.
+    - Diseño responsivo y accesible, cumpliendo con las pautas WCAG.
+    - Se cuidan detalles de contraste, tipografía y tamaño de elementos.
   -->
   <style>
-    /* Variables globales */
     :root {
-      --font-family: 'Arial', sans-serif;
-      --transition-speed: 0.3s;
+      --font-family: "Helvetica", Arial, sans-serif;
+      --transition-time: 0.3s;
 
-      /* Colores para tema claro */
-      --color-bg-light: #ffffff;
-      --color-text-light: #222222;
-      --color-primary-light: #0078d4;
-      --color-secondary-light: #cccccc;
-      --color-accent-light: #ececec;
-      --color-danger-light: #ff4444;
-      --color-warning-light: #ffaa00;
-      --color-success-light: #44dd44;
+      /* Paleta clara */
+      --light-bg: #fff;
+      --light-text: #222;
+      --light-primary: #0066cc;
+      --light-accent: #ededed;
+      --light-border: #ccc;
+      --light-danger: #ff4d4d;
+      --light-warning: #ffae00;
+      --light-success: #33cc33;
 
-      /* Colores para tema oscuro */
-      --color-bg-dark: #1e1e1e;
-      --color-text-dark: #f0f0f0;
-      --color-primary-dark: #6cb4ff;
-      --color-secondary-dark: #555555;
-      --color-accent-dark: #2a2a2a;
-      --color-danger-dark: #ff4444;
-      --color-warning-dark: #ffaa00;
-      --color-success-dark: #44dd44;
+      /* Paleta oscura */
+      --dark-bg: #1f1f1f;
+      --dark-text: #f5f5f5;
+      --dark-primary: #66aaff;
+      --dark-accent: #2c2c2c;
+      --dark-border: #444;
+      --dark-danger: #ff4d4d;
+      --dark-warning: #ffae00;
+      --dark-success: #33cc33;
     }
 
-    /* Por defecto, aplicamos tema claro. 
-       Cambiaremos dinámicamente esta clase en <body> según preferencia. */
-    body.light-theme {
-      background-color: var(--color-bg-light);
-      color: var(--color-text-light);
+    /* Tema claro */
+    body.light-mode {
+      background-color: var(--light-bg);
+      color: var(--light-text);
       font-family: var(--font-family);
+      transition: background-color var(--transition-time), color var(--transition-time);
       margin: 0;
-      transition: background-color var(--transition-speed) ease,
-                  color var(--transition-speed) ease;
+      padding: 0;
     }
-
-    body.light-theme .container {
-      background-color: var(--color-accent-light);
+    body.light-mode .app-container {
+      background-color: var(--light-accent);
     }
-
-    body.light-theme .btn {
-      background-color: var(--color-primary-light);
-      color: #ffffff;
+    body.light-mode .btn {
+      background-color: var(--light-primary);
+      color: #fff;
     }
-
-    body.light-theme .password-strength {
-      background-color: var(--color-secondary-light);
+    body.light-mode .strength-indicator {
+      background-color: var(--light-border);
     }
 
     /* Tema oscuro */
-    body.dark-theme {
-      background-color: var(--color-bg-dark);
-      color: var(--color-text-dark);
+    body.dark-mode {
+      background-color: var(--dark-bg);
+      color: var(--dark-text);
       font-family: var(--font-family);
+      transition: background-color var(--transition-time), color var(--transition-time);
       margin: 0;
-      transition: background-color var(--transition-speed) ease,
-                  color var(--transition-speed) ease;
+      padding: 0;
     }
-
-    body.dark-theme .container {
-      background-color: var(--color-accent-dark);
+    body.dark-mode .app-container {
+      background-color: var(--dark-accent);
     }
-
-    body.dark-theme .btn {
-      background-color: var(--color-primary-dark);
-      color: #ffffff;
+    body.dark-mode .btn {
+      background-color: var(--dark-primary);
+      color: #fff;
     }
-
-    body.dark-theme .password-strength {
-      background-color: var(--color-secondary-dark);
+    body.dark-mode .strength-indicator {
+      background-color: var(--dark-border);
     }
 
     /* Estructura principal */
     header, main, footer {
-      padding: 1rem;
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
+      padding: 1rem;
     }
 
     header h1 {
-      margin: 0;
       text-align: center;
-      padding: 0.5rem;
+      margin: 0;
     }
 
-    .container {
-      border-radius: 8px;
+    .app-container {
+      border-radius: 6px;
       padding: 1rem;
       margin-top: 1rem;
     }
 
-    .form-row {
+    .config-section, .result-section, .saved-section {
+      margin-bottom: 1rem;
+    }
+
+    /* Controles */
+    .config-row {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       margin-bottom: 1rem;
+      gap: 1rem;
     }
 
-    .form-row label {
+    .config-row label {
       margin-right: 0.5rem;
     }
 
-    .form-row input[type="number"] {
-      width: 80px;
-      text-align: center;
+    .config-row input[type="number"] {
+      width: 70px;
     }
 
-    .options {
+    .checkboxes {
       display: flex;
-      flex-wrap: wrap;
       gap: 1rem;
-      margin-bottom: 1rem;
+      flex-wrap: wrap;
     }
 
-    .options label {
+    .checkboxes label {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.3rem;
     }
 
     .btn {
-      padding: 0.5rem 1rem;
-      margin-right: 0.5rem;
+      padding: 0.6rem 1rem;
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      transition: opacity var(--transition-speed);
+      transition: opacity var(--transition-time);
+      margin-right: 0.5rem;
     }
-
     .btn:hover {
       opacity: 0.8;
     }
 
-    .generated-password {
+    /* Visualización de contraseña */
+    .result-row {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 1rem;
       flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1rem;
     }
 
-    .password-display {
+    .password-box {
       flex: 1;
-      padding: 0.5rem;
-      border: 1px solid #ccc;
+      min-height: 2.4rem;
+      border: 1px solid var(--light-border);
       border-radius: 4px;
+      padding: 0.5rem;
       word-wrap: break-word;
-      min-height: 2.5rem;
+      overflow-wrap: break-word;
     }
 
+    /* Feedback de copiado */
     .copy-feedback {
       font-size: 0.9rem;
-      margin-left: auto;
       opacity: 0;
-      transition: opacity var(--transition-speed);
+      transition: opacity var(--transition-time);
     }
-
     .copy-feedback.visible {
       opacity: 1;
     }
 
-    .password-strength {
+    /* Indicador de fortaleza */
+    .strength-indicator {
       display: inline-block;
-      padding: 0.3rem 0.5rem;
+      padding: 0.4rem 0.8rem;
       border-radius: 4px;
-      color: #fff;
+      font-weight: 600;
       margin-bottom: 1rem;
-      font-weight: bold;
+      color: #fff;
       text-align: center;
-      transition: background-color var(--transition-speed);
     }
-
-    /* Colores de fortaleza de la contraseña */
-    .strength-weak {
-      background-color: var(--color-danger-light);
+    .weak {
+      background-color: var(--light-danger);
     }
-    .strength-medium {
-      background-color: var(--color-warning-light);
+    .medium {
+      background-color: var(--light-warning);
     }
-    .strength-strong {
-      background-color: var(--color-success-light);
+    .strong {
+      background-color: var(--light-success);
     }
 
     /* Sección de contraseñas guardadas */
-    .saved-passwords-list {
+    .saved-list {
       list-style-type: none;
       padding: 0;
       margin: 0;
     }
-
-    .saved-passwords-list li {
+    .saved-list li {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      border: 1px solid #ccc;
+      align-items: center;
+      border: 1px solid var(--light-border);
       border-radius: 4px;
       padding: 0.5rem;
       margin-bottom: 0.5rem;
       word-wrap: break-word;
     }
-
-    .saved-passwords-list .btn-delete {
-      margin-left: 0.5rem;
-      background-color: var(--color-danger-light);
+    .delete-btn {
+      background-color: var(--light-danger);
       color: #fff;
     }
 
-    /* Botón de modo oscuro/claro */
-    .theme-toggle {
+    /* Botón tema oscuro/claro */
+    .theme-switcher {
       text-align: center;
       margin-top: 1rem;
     }
 
-    /* Responsividad */
+    /* Media queries para responsividad */
     @media (max-width: 600px) {
-      .form-row {
+      .config-row {
         flex-direction: column;
+        align-items: flex-start;
       }
-      .generated-password {
+      .result-row {
         flex-direction: column;
         align-items: flex-start;
       }
     }
   </style>
 </head>
-<body class="light-theme">
+<body class="light-mode">
   <!--
     =========================================================
-    Contenido HTML
+    Estructura HTML
     =========================================================
+    - Uso semántico de etiquetas <header>, <main>, <section>, <footer>.
+    - Secciones claramente identificadas para la configuración, generación y lista de contraseñas.
   -->
   <header>
-    <h1>Generador de Contraseñas Seguras</h1>
+    <h1>Generador Seguro de Contraseñas</h1>
   </header>
 
   <main>
-    <!-- Contenedor principal -->
-    <section class="container" aria-label="Generador de contraseñas">
-      <!-- Configuración de longitud y tipos de caracteres -->
-      <div class="form-row">
-        <label for="password-length">Longitud:</label>
-        <input
-          type="number"
-          id="password-length"
-          min="8"
-          max="50"
-          value="12"
-          aria-label="Longitud de la contraseña"
-        />
+    <!-- Contenedor principal de la aplicación -->
+    <section class="app-container" aria-label="Generador de Contraseñas">
+      <!-- Configuración de la contraseña -->
+      <div class="config-section">
+        <div class="config-row">
+          <label for="pwd-length">Longitud:</label>
+          <input
+            type="number"
+            id="pwd-length"
+            min="8"
+            max="50"
+            value="12"
+            aria-label="Longitud de la contraseña"
+          />
+        </div>
+
+        <div class="checkboxes">
+          <label>
+            <input type="checkbox" id="chk-uppercase" checked aria-label="Incluir mayúsculas"/>Mayúsculas
+          </label>
+          <label>
+            <input type="checkbox" id="chk-lowercase" checked aria-label="Incluir minúsculas"/>Minúsculas
+          </label>
+          <label>
+            <input type="checkbox" id="chk-numbers" checked aria-label="Incluir números"/>Números
+          </label>
+          <label>
+            <input type="checkbox" id="chk-symbols" checked aria-label="Incluir símbolos"/>Símbolos
+          </label>
+        </div>
       </div>
 
-      <div class="options">
-        <label>
-          <input
-            type="checkbox"
-            id="include-uppercase"
-            checked
-            aria-label="Incluir mayúsculas"
-          />
-          Mayúsculas
-        </label>
-
-        <label>
-          <input
-            type="checkbox"
-            id="include-lowercase"
-            checked
-            aria-label="Incluir minúsculas"
-          />
-          Minúsculas
-        </label>
-
-        <label>
-          <input
-            type="checkbox"
-            id="include-numbers"
-            checked
-            aria-label="Incluir números"
-          />
-          Números
-        </label>
-
-        <label>
-          <input
-            type="checkbox"
-            id="include-symbols"
-            checked
-            aria-label="Incluir símbolos"
-          />
-          Símbolos
-        </label>
+      <!-- Botones de acción -->
+      <div class="result-section">
+        <button class="btn" id="btn-generate">Generar</button>
+        <button class="btn" id="btn-save">Guardar</button>
       </div>
 
-      <!-- Botón para generar contraseña -->
-      <button class="btn" id="generate-btn">Generar</button>
-
-      <!-- Visualización de contraseña generada -->
-      <div class="generated-password" aria-live="polite">
-        <div class="password-display" id="password-display" tabindex="0" aria-label="Contraseña generada"></div>
-        <button class="btn" id="copy-btn">Copiar</button>
-        <span class="copy-feedback" id="copy-feedback">¡Copiado!</span>
+      <!-- Visualización y copia de contraseña -->
+      <div class="result-row">
+        <div class="password-box" id="display-pwd" tabindex="0" aria-label="Contraseña generada"></div>
+        <button class="btn" id="btn-copy">Copiar</button>
+        <span class="copy-feedback" id="copy-notice">¡Copiado!</span>
       </div>
 
-      <!-- Indicador de fuerza de contraseña -->
-      <div class="password-strength" id="password-strength-indicator">Fortaleza</div>
-
-      <!-- Botón para guardar contraseña -->
-      <button class="btn" id="save-btn">Guardar</button>
+      <!-- Indicador de fortaleza -->
+      <div class="strength-indicator" id="strength-msg">Fortaleza</div>
     </section>
 
-    <!-- Lista de contraseñas guardadas -->
-    <section class="container" aria-label="Contraseñas guardadas">
+    <!-- Sección de contraseñas guardadas -->
+    <section class="app-container saved-section" aria-label="Contraseñas Guardadas">
       <h2>Contraseñas Guardadas</h2>
-      <ul class="saved-passwords-list" id="saved-passwords-list"></ul>
+      <ul class="saved-list" id="saved-list"></ul>
     </section>
 
-    <!-- Alternar tema -->
-    <div class="theme-toggle">
-      <button class="btn" id="toggle-theme-btn">Modo Oscuro/Claro</button>
+    <!-- Botón para alternar tema -->
+    <div class="theme-switcher">
+      <button class="btn" id="btn-toggle-theme">Alternar Modo Claro/Oscuro</button>
     </div>
   </main>
 
   <footer>
-    <p style="text-align: center;">&copy; 2025 Generador de Contraseñas Seguras</p>
+    <p style="text-align:center;">&copy; 2025 Generador de Contraseñas Seguras</p>
   </footer>
 
   <!--
     =========================================================
     Scripts (JavaScript)
     =========================================================
-    - Se utilizan funciones separadas para:
-      * Generar contraseñas
-      * Actualizar UI
-      * Manejar localStorage
-      * Controlar el tema (oscuro/claro)
-    - Se usa crypto.getRandomValues para mayor seguridad en la generación.
-    - Se incluyen comentarios explicativos en secciones clave.
+    - Código modular: funciones para generación, guardado, copiado y manejo de UI.
+    - Uso de crypto.getRandomValues para mayor seguridad.
+    - Se almacena tema y contraseñas en localStorage.
+    - Se evita cualquier dependencia externa.
   -->
   <script>
-    // DOM elements
-    const passwordLengthInput = document.getElementById('password-length');
-    const includeUppercaseInput = document.getElementById('include-uppercase');
-    const includeLowercaseInput = document.getElementById('include-lowercase');
-    const includeNumbersInput = document.getElementById('include-numbers');
-    const includeSymbolsInput = document.getElementById('include-symbols');
-    const generateBtn = document.getElementById('generate-btn');
-    const copyBtn = document.getElementById('copy-btn');
-    const copyFeedback = document.getElementById('copy-feedback');
-    const passwordDisplay = document.getElementById('password-display');
-    const passwordStrengthIndicator = document.getElementById('password-strength-indicator');
-    const saveBtn = document.getElementById('save-btn');
-    const savedPasswordsList = document.getElementById('saved-passwords-list');
-    const toggleThemeBtn = document.getElementById('toggle-theme-btn');
-    const bodyElement = document.body;
+    // Elementos del DOM
+    const lengthInput = document.getElementById('pwd-length');
+    const chkUppercase = document.getElementById('chk-uppercase');
+    const chkLowercase = document.getElementById('chk-lowercase');
+    const chkNumbers = document.getElementById('chk-numbers');
+    const chkSymbols = document.getElementById('chk-symbols');
+    const btnGenerate = document.getElementById('btn-generate');
+    const btnCopy = document.getElementById('btn-copy');
+    const btnSave = document.getElementById('btn-save');
+    const btnToggleTheme = document.getElementById('btn-toggle-theme');
+    const displayPwd = document.getElementById('display-pwd');
+    const copyNotice = document.getElementById('copy-notice');
+    const strengthMsg = document.getElementById('strength-msg');
+    const savedList = document.getElementById('saved-list');
 
     // Caracteres disponibles
-    const UPPERCASE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const LOWERCASE_CHARS = 'abcdefghijklmnopqrstuvwxyz';
-    const NUMBERS_CHARS = '0123456789';
-    const SYMBOLS_CHARS = '!@#$%^&*()_+~`|}{[]\\:;?><,./-=';
+    const UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
+    const NUMBERS = "0123456789";
+    const SYMBOLS = "!@#$%^&*()_+~{}[]|:;<>?/\\-=`.,'\"";
 
-    // Al cargar la página, inicializamos tema y mostramos las contraseñas almacenadas
+    // Inicialización al cargar la página
     window.addEventListener('DOMContentLoaded', () => {
       loadThemePreference();
-      displaySavedPasswords();
+      loadSavedPasswords();
     });
 
-    // Función para generar contraseñas usando crypto.getRandomValues
-    const generatePassword = (length, useUppercase, useLowercase, useNumbers, useSymbols) => {
-      let chars = '';
-      if (useUppercase) chars += UPPERCASE_CHARS;
-      if (useLowercase) chars += LOWERCASE_CHARS;
-      if (useNumbers) chars += NUMBERS_CHARS;
-      if (useSymbols) chars += SYMBOLS_CHARS;
+    /* =========================================
+       Función principal: generar contraseña
+    ========================================= */
+    function generateSecurePassword(length, useUpper, useLower, useNum, useSym) {
+      let characterPool = "";
+      if (useUpper) characterPool += UPPERCASE;
+      if (useLower) characterPool += LOWERCASE;
+      if (useNum) characterPool += NUMBERS;
+      if (useSym) characterPool += SYMBOLS;
 
-      // Manejo de error: si no se selecciona ningún tipo de carácter
-      if (!chars) {
-        alert('Por favor, selecciona al menos una opción (mayúsculas, minúsculas, números o símbolos).');
-        return '';
+      if (!characterPool) {
+        alert("Debes seleccionar al menos un tipo de caracter");
+        return "";
       }
 
-      // Generar arreglo de bytes aleatorios
-      const array = new Uint8Array(length);
-      crypto.getRandomValues(array);
+      // Generador con crypto.getRandomValues
+      const resultArray = new Uint8Array(length);
+      crypto.getRandomValues(resultArray);
 
-      // Construir la contraseña tomando cada byte mod la longitud de chars
-      let password = '';
+      let password = "";
       for (let i = 0; i < length; i++) {
-        const randomIndex = array[i] % chars.length;
-        password += chars.charAt(randomIndex);
+        const randomIndex = resultArray[i] % characterPool.length;
+        password += characterPool.charAt(randomIndex);
       }
-
       return password;
-    };
+    }
 
-    // Función para actualizar el indicador de fortaleza de la contraseña
-    const updateStrengthIndicator = (password) => {
-      if (!password) {
-        passwordStrengthIndicator.textContent = 'Fortaleza';
-        passwordStrengthIndicator.classList.remove('strength-weak', 'strength-medium', 'strength-strong');
-        return;
-      }
+    /* =========================================
+       Evento: Generar Contraseña
+    ========================================= */
+    btnGenerate.addEventListener('click', () => {
+      const length = parseInt(lengthInput.value, 10);
+      const useUpper = chkUppercase.checked;
+      const useLower = chkLowercase.checked;
+      const useNumbers = chkNumbers.checked;
+      const useSymbols = chkSymbols.checked;
 
-      let score = 0;
-
-      // Aumentamos el puntaje según la longitud
-      score += password.length * 4;
-
-      // Aumentamos el puntaje según variedad de caracteres
-      const hasUpper = /[A-Z]/.test(password);
-      const hasLower = /[a-z]/.test(password);
-      const hasNumbers = /[0-9]/.test(password);
-      const hasSymbols = /[^A-Za-z0-9]/.test(password);
-
-      if (hasUpper) score += 5;
-      if (hasLower) score += 5;
-      if (hasNumbers) score += 5;
-      if (hasSymbols) score += 5;
-
-      // Evaluamos el score para clasificar fortaleza
-      let strength = 'Débil';
-      passwordStrengthIndicator.classList.remove('strength-weak', 'strength-medium', 'strength-strong');
-
-      if (score < 40) {
-        strength = 'Débil';
-        passwordStrengthIndicator.classList.add('strength-weak');
-      } else if (score >= 40 && score < 70) {
-        strength = 'Media';
-        passwordStrengthIndicator.classList.add('strength-medium');
-      } else {
-        strength = 'Fuerte';
-        passwordStrengthIndicator.classList.add('strength-strong');
-      }
-
-      passwordStrengthIndicator.textContent = `Fortaleza: ${strength}`;
-    };
-
-    // Evento: hacer clic en "Generar"
-    generateBtn.addEventListener('click', () => {
-      const length = parseInt(passwordLengthInput.value, 10);
-      const useUppercase = includeUppercaseInput.checked;
-      const useLowercase = includeLowercaseInput.checked;
-      const useNumbers = includeNumbersInput.checked;
-      const useSymbols = includeSymbolsInput.checked;
-
-      const newPassword = generatePassword(length, useUppercase, useLowercase, useNumbers, useSymbols);
-      passwordDisplay.textContent = newPassword;
-      updateStrengthIndicator(newPassword);
+      const newPwd = generateSecurePassword(length, useUpper, useLower, useNumbers, useSymbols);
+      displayPwd.textContent = newPwd;
+      evaluateStrength(newPwd);
       hideCopyFeedback();
     });
 
-    // Evento: hacer clic en "Copiar"
-    copyBtn.addEventListener('click', () => {
-      const passwordToCopy = passwordDisplay.textContent.trim();
-      if (!passwordToCopy) return;
+    /* =========================================
+       Evento: Copiar Contraseña
+    ========================================= */
+    btnCopy.addEventListener('click', () => {
+      const currentPwd = displayPwd.textContent.trim();
+      if (!currentPwd) return;
 
-      // Copiar al portapapeles
-      navigator.clipboard.writeText(passwordToCopy).then(() => {
+      navigator.clipboard.writeText(currentPwd).then(() => {
         showCopyFeedback();
       });
     });
 
-    // Función para mostrar feedback "¡Copiado!"
-    const showCopyFeedback = () => {
-      copyFeedback.classList.add('visible');
+    function showCopyFeedback() {
+      copyNotice.classList.add('visible');
       setTimeout(() => {
         hideCopyFeedback();
-      }, 2000); // Ocultar después de 2 segundos
-    };
+      }, 2000);
+    }
 
-    // Función para ocultar feedback
-    const hideCopyFeedback = () => {
-      copyFeedback.classList.remove('visible');
-    };
+    function hideCopyFeedback() {
+      copyNotice.classList.remove('visible');
+    }
 
-    // Evento: hacer clic en "Guardar"
-    saveBtn.addEventListener('click', () => {
-      const currentPassword = passwordDisplay.textContent.trim();
-      if (!currentPassword) {
-        alert('Primero genera una contraseña antes de guardar.');
+    /* =========================================
+       Evaluar fortaleza de la contraseña
+    ========================================= */
+    function evaluateStrength(password) {
+      if (!password) {
+        strengthMsg.textContent = "Fortaleza";
+        strengthMsg.classList.remove('weak', 'medium', 'strong');
         return;
       }
 
-      savePassword(currentPassword);
-      displaySavedPasswords();
+      let score = 0;
+      // Longitud
+      score += password.length * 4;
+      // Diversidad de caracteres
+      const hasUpper = /[A-Z]/.test(password);
+      const hasLower = /[a-z]/.test(password);
+      const hasNum = /[0-9]/.test(password);
+      const hasSym = /[^A-Za-z0-9]/.test(password);
+
+      if (hasUpper) score += 5;
+      if (hasLower) score += 5;
+      if (hasNum) score += 5;
+      if (hasSym) score += 5;
+
+      strengthMsg.classList.remove('weak', 'medium', 'strong');
+      let strengthLabel = "Débil";
+
+      if (score < 40) {
+        strengthLabel = "Débil";
+        strengthMsg.classList.add('weak');
+      } else if (score >= 40 && score < 70) {
+        strengthLabel = "Media";
+        strengthMsg.classList.add('medium');
+      } else {
+        strengthLabel = "Fuerte";
+        strengthMsg.classList.add('strong');
+      }
+      strengthMsg.textContent = `Fortaleza: ${strengthLabel}`;
+    }
+
+    /* =========================================
+       Evento: Guardar Contraseña
+    ========================================= */
+    btnSave.addEventListener('click', () => {
+      const currentPwd = displayPwd.textContent.trim();
+      if (!currentPwd) {
+        alert("No hay contraseña para guardar. Genera una primero.");
+        return;
+      }
+      savePassword(currentPwd);
+      loadSavedPasswords();
     });
 
-    // Función para guardar contraseñas en localStorage
-    const savePassword = (password) => {
-      const storedPasswords = JSON.parse(localStorage.getItem('savedPasswords')) || [];
-      storedPasswords.push(password);
-      localStorage.setItem('savedPasswords', JSON.stringify(storedPasswords));
-    };
+    function savePassword(pwd) {
+      const stored = JSON.parse(localStorage.getItem('myPasswords')) || [];
+      stored.push(pwd);
+      localStorage.setItem('myPasswords', JSON.stringify(stored));
+    }
 
-    // Función para mostrar contraseñas guardadas
-    const displaySavedPasswords = () => {
-      const storedPasswords = JSON.parse(localStorage.getItem('savedPasswords')) || [];
-      savedPasswordsList.innerHTML = '';
+    function loadSavedPasswords() {
+      const stored = JSON.parse(localStorage.getItem('myPasswords')) || [];
+      savedList.innerHTML = "";
 
-      storedPasswords.forEach((pass, index) => {
+      stored.forEach((pwd, idx) => {
         const li = document.createElement('li');
         li.innerHTML = `
-          <span>${pass}</span>
+          <span>${pwd}</span>
           <div>
-            <button class="btn" data-copy-index="${index}">Copiar</button>
-            <button class="btn btn-delete" data-delete-index="${index}">Eliminar</button>
+            <button class="btn" data-copy-index="${idx}">Copiar</button>
+            <button class="btn delete-btn" data-del-index="${idx}">Eliminar</button>
           </div>
         `;
-        savedPasswordsList.appendChild(li);
+        savedList.appendChild(li);
       });
 
-      // Agregar eventos a botones de cada ítem
-      document.querySelectorAll('[data-copy-index]').forEach((btn) => {
+      // Manejo de eventos en cada item
+      document.querySelectorAll('[data-copy-index]').forEach(btn => {
         btn.addEventListener('click', (e) => {
-          const idx = e.target.getAttribute('data-copy-index');
-          copySavedPassword(idx);
+          const index = e.target.getAttribute('data-copy-index');
+          copySavedPassword(index);
         });
       });
 
-      document.querySelectorAll('[data-delete-index]').forEach((btn) => {
+      document.querySelectorAll('[data-del-index]').forEach(btn => {
         btn.addEventListener('click', (e) => {
-          const idx = e.target.getAttribute('data-delete-index');
-          deleteSavedPassword(idx);
+          const index = e.target.getAttribute('data-del-index');
+          deleteSavedPassword(index);
         });
       });
-    };
+    }
 
-    // Función para copiar una contraseña guardada
-    const copySavedPassword = (index) => {
-      const storedPasswords = JSON.parse(localStorage.getItem('savedPasswords')) || [];
-      if (storedPasswords[index]) {
-        navigator.clipboard.writeText(storedPasswords[index]).then(() => {
-          alert('¡Contraseña copiada de la lista!');
+    // Copiar contraseña guardada
+    function copySavedPassword(index) {
+      const stored = JSON.parse(localStorage.getItem('myPasswords')) || [];
+      if (stored[index]) {
+        navigator.clipboard.writeText(stored[index]).then(() => {
+          alert("¡Contraseña copiada de la lista!");
         });
       }
-    };
+    }
 
-    // Función para eliminar una contraseña guardada
-    const deleteSavedPassword = (index) => {
-      let storedPasswords = JSON.parse(localStorage.getItem('savedPasswords')) || [];
-      storedPasswords.splice(index, 1);
-      localStorage.setItem('savedPasswords', JSON.stringify(storedPasswords));
-      displaySavedPasswords();
-    };
+    // Eliminar contraseña guardada
+    function deleteSavedPassword(index) {
+      let stored = JSON.parse(localStorage.getItem('myPasswords')) || [];
+      stored.splice(index, 1);
+      localStorage.setItem('myPasswords', JSON.stringify(stored));
+      loadSavedPasswords();
+    }
 
-    // Tema oscuro / claro
-    toggleThemeBtn.addEventListener('click', () => {
-      const currentTheme = bodyElement.classList.contains('light-theme') ? 'light' : 'dark';
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      bodyElement.classList.toggle('light-theme');
-      bodyElement.classList.toggle('dark-theme');
-      // Guardar preferencia
-      localStorage.setItem('preferredTheme', newTheme);
+    /* =========================================
+       Alternar Tema Oscuro/Claro
+    ========================================= */
+    btnToggleTheme.addEventListener('click', () => {
+      const isLight = document.body.classList.contains('light-mode');
+      if (isLight) {
+        document.body.classList.remove('light-mode');
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('themePref', 'dark');
+      } else {
+        document.body.classList.remove('dark-mode');
+        document.body.classList.add('light-mode');
+        localStorage.setItem('themePref', 'light');
+      }
     });
 
-    // Cargar la preferencia de tema
-    const loadThemePreference = () => {
-      const preferredTheme = localStorage.getItem('preferredTheme');
-      if (preferredTheme === 'dark') {
-        bodyElement.classList.remove('light-theme');
-        bodyElement.classList.add('dark-theme');
+    function loadThemePreference() {
+      const themePref = localStorage.getItem('themePref');
+      if (themePref === 'dark') {
+        document.body.classList.remove('light-mode');
+        document.body.classList.add('dark-mode');
       } else {
-        // Por defecto, tema claro
-        bodyElement.classList.remove('dark-theme');
-        bodyElement.classList.add('light-theme');
+        document.body.classList.remove('dark-mode');
+        document.body.classList.add('light-mode');
       }
-    };
+    }
   </script>
 </body>
 </html>
