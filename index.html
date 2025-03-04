@@ -31,17 +31,25 @@
       --dark-success: #33cc33;
     }
 
-    /* Tema claro */
+    /* ==============================
+       Ajustes de tema claro
+    ============================== */
     body.light-mode {
       background-color: var(--light-bg);
       color: var(--light-text);
       font-family: var(--font-family);
       transition: background-color var(--transition-time), color var(--transition-time);
+
+      /* Imagen de fondo para modo claro (opcional). 
+         Reemplaza URL_DE_TU_IMAGEN_FONDO_LIGHT con la imagen que subiste. */
+      background: url("URL_DE_TU_IMAGEN_FONDO_LIGHT") no-repeat center center fixed;
+      background-size: cover;
       margin: 0;
       padding: 0;
     }
     body.light-mode .app-container {
       background-color: var(--light-accent);
+      backdrop-filter: blur(2px); /* Efecto de transparencia opcional */
     }
     body.light-mode .btn {
       background-color: var(--light-primary);
@@ -51,17 +59,25 @@
       background-color: var(--light-border);
     }
 
-    /* Tema oscuro */
+    /* ==============================
+       Ajustes de tema oscuro
+    ============================== */
     body.dark-mode {
       background-color: var(--dark-bg);
       color: var(--dark-text);
       font-family: var(--font-family);
       transition: background-color var(--transition-time), color var(--transition-time);
+
+      /* Imagen de fondo para modo oscuro (opcional).
+         Reemplaza URL_DE_TU_IMAGEN_FONDO_DARK con la imagen que subiste. */
+      background: url("URL_DE_TU_IMAGEN_FONDO_DARK") no-repeat center center fixed;
+      background-size: cover;
       margin: 0;
       padding: 0;
     }
     body.dark-mode .app-container {
       background-color: var(--dark-accent);
+      backdrop-filter: blur(2px); /* Efecto de transparencia opcional */
     }
     body.dark-mode .btn {
       background-color: var(--dark-primary);
@@ -76,6 +92,18 @@
       max-width: 900px;
       margin: 0 auto;
       padding: 1rem;
+    }
+
+    /* Logo opcional (reemplaza la URL en el <img>) */
+    .header-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+    .header-logo img {
+      max-width: 150px; /* Ajusta el tamaño si lo deseas */
+      height: auto;
     }
 
     header h1 {
@@ -151,6 +179,7 @@
       padding: 0.5rem;
       word-wrap: break-word;
       overflow-wrap: break-word;
+      background-color: rgba(255, 255, 255, 0.6); /* Ajusta según tu gusto */
     }
 
     /* Feedback de copiado */
@@ -198,6 +227,7 @@
       padding: 0.5rem;
       margin-bottom: 0.5rem;
       word-wrap: break-word;
+      background-color: rgba(255, 255, 255, 0.6);
     }
     .delete-btn {
       background-color: var(--light-danger);
@@ -220,11 +250,21 @@
         flex-direction: column;
         align-items: flex-start;
       }
+      .header-logo img {
+        max-width: 120px;
+      }
     }
   </style>
 </head>
 <body class="light-mode">
   <header>
+    <!--
+      Sección para el logotipo.
+      Reemplaza "URL_DE_TU_LOGO" con la URL de tu imagen en GitHub.
+    -->
+    <div class="header-logo">
+      <img src="https://github.com/Javier-sanchez26/Class-01/blob/main/imagen/xagau26_A_photo_of_a_21-year-old_boy_standing_in_his_well-arran_214e0b7d-4cb9-49a5-a284-e480323a3ef1.png" alt="Logotipo de la aplicación"/>
+    </div>
     <h1>Generador Seguro de Contraseñas</h1>
   </header>
 
@@ -246,36 +286,4 @@
 
         <div class="checkboxes">
           <label>
-            <input type="checkbox" id="chk-uppercase" checked aria-label="Incluir mayúsculas"/>Mayúsculas
-          </label>
-          <label>
-            <input type="checkbox" id="chk-lowercase" checked aria-label="Incluir minúsculas"/>Minúsculas
-          </label>
-          <label>
-            <input type="checkbox" id="chk-numbers" checked aria-label="Incluir números"/>Números
-          </label>
-          <label>
-            <input type="checkbox" id="chk-symbols" checked aria-label="Incluir símbolos"/>Símbolos
-          </label>
-        </div>
-      </div>
-
-      <!-- Botones de acción -->
-      <div class="result-section">
-        <button class="btn" id="btn-generate">Generar</button>
-        <button class="btn" id="btn-save">Guardar</button>
-      </div>
-
-      <!-- Visualización y copia de contraseña -->
-      <div class="result-row">
-        <div class="password-box" id="display-pwd" tabindex="0" aria-label="Contraseña generada"></div>
-        <button class="btn" id="btn-copy">Copiar</button>
-        <span class="copy-feedback" id="copy-notice">¡Copiado!</span>
-      </div>
-
-      <!-- Indicador de fortaleza -->
-      <div class="strength-indicator" id="strength-msg">Fortaleza</div>
-    </section>
-
-    <section class="app-container saved-section" aria-label="Contraseñas Guardadas">
-     
+            <input type="checkbox" id="chk-uppercase" checked aria-label="Incluir m
