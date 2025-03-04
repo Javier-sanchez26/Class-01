@@ -42,7 +42,7 @@
 
       /* Imagen de fondo para modo claro (opcional). 
          Reemplaza URL_DE_TU_IMAGEN_FONDO_LIGHT con la imagen que subiste. */
-      background: url("URL_DE_TU_IMAGEN_FONDO_LIGHT") no-repeat center center fixed;
+      background: url(xagau26_A_photo_of_a_21-year-old_boy_standing_in_his_well-arran_214e0b7d-4cb9-49a5-a284-e480323a3ef1.png) no-repeat center center fixed;
       background-size: cover;
       margin: 0;
       padding: 0;
@@ -263,7 +263,7 @@
       Reemplaza "URL_DE_TU_LOGO" con la URL de tu imagen en GitHub.
     -->
     <div class="header-logo">
-      <img src="https://github.com/Javier-sanchez26/Class-01/blob/main/imagen/xagau26_A_photo_of_a_21-year-old_boy_standing_in_his_well-arran_214e0b7d-4cb9-49a5-a284-e480323a3ef1.png" alt="Logotipo de la aplicación"/>
+      <img src="URL_DE_TU_LOGO" alt="Logotipo de la aplicación"/>
     </div>
     <h1>Generador Seguro de Contraseñas</h1>
   </header>
@@ -286,4 +286,259 @@
 
         <div class="checkboxes">
           <label>
-            <input type="checkbox" id="chk-uppercase" checked aria-label="Incluir m
+            <input type="checkbox" id="chk-uppercase" checked aria-label="Incluir mayúsculas"/>Mayúsculas
+          </label>
+          <label>
+            <input type="checkbox" id="chk-lowercase" checked aria-label="Incluir minúsculas"/>Minúsculas
+          </label>
+          <label>
+            <input type="checkbox" id="chk-numbers" checked aria-label="Incluir números"/>Números
+          </label>
+          <label>
+            <input type="checkbox" id="chk-symbols" checked aria-label="Incluir símbolos"/>Símbolos
+          </label>
+        </div>
+      </div>
+
+      <!-- Botones de acción -->
+      <div class="result-section">
+        <button class="btn" id="btn-generate">Generar</button>
+        <button class="btn" id="btn-save">Guardar</button>
+      </div>
+
+      <!-- Visualización y copia de contraseña -->
+      <div class="result-row">
+        <div class="password-box" id="display-pwd" tabindex="0" aria-label="Contraseña generada"></div>
+        <button class="btn" id="btn-copy">Copiar</button>
+        <span class="copy-feedback" id="copy-notice">¡Copiado!</span>
+      </div>
+
+      <!-- Indicador de fortaleza -->
+      <div class="strength-indicator" id="strength-msg">Fortaleza</div>
+    </section>
+
+    <section class="app-container saved-section" aria-label="Contraseñas Guardadas">
+      <h2>Contraseñas Guardadas</h2>
+      <ul class="saved-list" id="saved-list"></ul>
+    </section>
+
+    <div class="theme-switcher">
+      <button class="btn" id="btn-toggle-theme">Alternar Modo Claro/Oscuro</button>
+    </div>
+  </main>
+
+  <footer>
+    <p style="text-align:center;">&copy; 2025 Generador de Contraseñas Seguras</p>
+  </footer>
+
+  <script>
+    // DOM elements
+    const lengthInput = document.getElementById('pwd-length');
+    const chkUppercase = document.getElementById('chk-uppercase');
+    const chkLowercase = document.getElementById('chk-lowercase');
+    const chkNumbers = document.getElementById('chk-numbers');
+    const chkSymbols = document.getElementById('chk-symbols');
+    const btnGenerate = document.getElementById('btn-generate');
+    const btnCopy = document.getElementById('btn-copy');
+    const btnSave = document.getElementById('btn-save');
+    const btnToggleTheme = document.getElementById('btn-toggle-theme');
+    const displayPwd = document.getElementById('display-pwd');
+    const copyNotice = document.getElementById('copy-notice');
+    const strengthMsg = document.getElementById('strength-msg');
+    const savedList = document.getElementById('saved-list');
+
+    // Caracteres disponibles (con comillas escapadas).
+    const UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
+    const NUMBERS = "0123456789";
+    const SYMBOLS = '!@#$%^&*()_+~{}[]|:;<>?/\\-=`.,\'"';
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadThemePreference();
+      loadSavedPasswords();
+    });
+
+    /* Generación de contraseña usando crypto.getRandomValues */
+    function generateSecurePassword(length, useUpper, useLower, useNum, useSym) {
+      let characterPool = "";
+      if (useUpper) characterPool += UPPERCASE;
+      if (useLower) characterPool += LOWERCASE;
+      if (useNum) characterPool += NUMBERS;
+      if (useSym) characterPool += SYMBOLS;
+
+      if (!characterPool) {
+        alert("Debes seleccionar al menos un tipo de caracter");
+        return "";
+      }
+
+      const resultArray = new Uint8Array(length);
+      crypto.getRandomValues(resultArray);
+
+      let password = "";
+      for (let i = 0; i < length; i++) {
+        const randomIndex = resultArray[i] % characterPool.length;
+        password += characterPool.charAt(randomIndex);
+      }
+      return password;
+    }
+
+    /* Generar */
+    btnGenerate.addEventListener('click', () => {
+      const length = parseInt(lengthInput.value, 10);
+      const useUpper = chkUppercase.checked;
+      const useLower = chkLowercase.checked;
+      const useNumbers = chkNumbers.checked;
+      const useSymbols = chkSymbols.checked;
+
+      const newPwd = generateSecurePassword(length, useUpper, useLower, useNumbers, useSymbols);
+      displayPwd.textContent = newPwd;
+      evaluateStrength(newPwd);
+      hideCopyFeedback();
+    });
+
+    /* Copiar */
+    btnCopy.addEventListener('click', () => {
+      const currentPwd = displayPwd.textContent.trim();
+      if (!currentPwd) return;
+      navigator.clipboard.writeText(currentPwd).then(() => {
+        showCopyFeedback();
+      });
+    });
+
+    function showCopyFeedback() {
+      copyNotice.classList.add('visible');
+      setTimeout(() => {
+        hideCopyFeedback();
+      }, 2000);
+    }
+
+    function hideCopyFeedback() {
+      copyNotice.classList.remove('visible');
+    }
+
+    /* Evaluar fortaleza */
+    function evaluateStrength(password) {
+      if (!password) {
+        strengthMsg.textContent = "Fortaleza";
+        strengthMsg.classList.remove('weak', 'medium', 'strong');
+        return;
+      }
+
+      let score = 0;
+      score += password.length * 4;
+
+      const hasUpper = /[A-Z]/.test(password);
+      const hasLower = /[a-z]/.test(password);
+      const hasNum = /[0-9]/.test(password);
+      const hasSym = /[^A-Za-z0-9]/.test(password);
+
+      if (hasUpper) score += 5;
+      if (hasLower) score += 5;
+      if (hasNum) score += 5;
+      if (hasSym) score += 5;
+
+      strengthMsg.classList.remove('weak', 'medium', 'strong');
+
+      if (score < 40) {
+        strengthMsg.textContent = "Fortaleza: Débil";
+        strengthMsg.classList.add('weak');
+      } else if (score >= 40 && score < 70) {
+        strengthMsg.textContent = "Fortaleza: Media";
+        strengthMsg.classList.add('medium');
+      } else {
+        strengthMsg.textContent = "Fortaleza: Fuerte";
+        strengthMsg.classList.add('strong');
+      }
+    }
+
+    /* Guardar contraseña */
+    btnSave.addEventListener('click', () => {
+      const currentPwd = displayPwd.textContent.trim();
+      if (!currentPwd) {
+        alert("No hay contraseña para guardar. Genera una primero.");
+        return;
+      }
+      savePassword(currentPwd);
+      loadSavedPasswords();
+    });
+
+    function savePassword(pwd) {
+      const stored = JSON.parse(localStorage.getItem('myPasswords')) || [];
+      stored.push(pwd);
+      localStorage.setItem('myPasswords', JSON.stringify(stored));
+    }
+
+    function loadSavedPasswords() {
+      const stored = JSON.parse(localStorage.getItem('myPasswords')) || [];
+      savedList.innerHTML = "";
+
+      stored.forEach((pwd, idx) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <span>${pwd}</span>
+          <div>
+            <button class="btn" data-copy-index="${idx}">Copiar</button>
+            <button class="btn delete-btn" data-del-index="${idx}">Eliminar</button>
+          </div>
+        `;
+        savedList.appendChild(li);
+      });
+
+      document.querySelectorAll('[data-copy-index]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const index = e.target.getAttribute('data-copy-index');
+          copySavedPassword(index);
+        });
+      });
+
+      document.querySelectorAll('[data-del-index]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const index = e.target.getAttribute('data-del-index');
+          deleteSavedPassword(index);
+        });
+      });
+    }
+
+    function copySavedPassword(index) {
+      const stored = JSON.parse(localStorage.getItem('myPasswords')) || [];
+      if (stored[index]) {
+        navigator.clipboard.writeText(stored[index]).then(() => {
+          alert("¡Contraseña copiada de la lista!");
+        });
+      }
+    }
+
+    function deleteSavedPassword(index) {
+      let stored = JSON.parse(localStorage.getItem('myPasswords')) || [];
+      stored.splice(index, 1);
+      localStorage.setItem('myPasswords', JSON.stringify(stored));
+      loadSavedPasswords();
+    }
+
+    /* Alternar tema */
+    btnToggleTheme.addEventListener('click', () => {
+      const isLight = document.body.classList.contains('light-mode');
+      if (isLight) {
+        document.body.classList.remove('light-mode');
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('themePref', 'dark');
+      } else {
+        document.body.classList.remove('dark-mode');
+        document.body.classList.add('light-mode');
+        localStorage.setItem('themePref', 'light');
+      }
+    });
+
+    function loadThemePreference() {
+      const themePref = localStorage.getItem('themePref');
+      if (themePref === 'dark') {
+        document.body.classList.remove('light-mode');
+        document.body.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+        document.body.classList.add('light-mode');
+      }
+    }
+  </script>
+</body>
+</html>
